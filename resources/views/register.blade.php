@@ -23,6 +23,8 @@
         });
     </script>
 
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
 </head>
 
 <body style="">
@@ -32,7 +34,8 @@
     </header>
 
     <main class="h-75 m-1 p-3 bg-secondary">
-        <form id="userForm" class="h-75 d-flex flex-column p-2 align-items-center">
+        <form action="{{route('register')}}" method="POST"
+            class="h-75 d-flex flex-column p-2 align-items-center" id="recaptchaForm">
             @csrf
             <h3 class="text-white fst-italic">Enter Your Info</h3>
 
@@ -121,7 +124,9 @@
             </div>
 
             {{-- Submit Section --}}
-            <input class="btn-success btn w-25" type="submit" value="Register">
+            <input class="btn-success btn w-25 g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key')}}"
+                data-callback='onSubmit' data-action='submit' type="submit" value="Register">
+
         </form>
     </main>
 
@@ -133,16 +138,7 @@
         </ol>
     </div> --}}
 
-    <footer class="bg-secondary m-1">
-        <div class="d-flex justify-content-end me-3">
-            <form action="" method="POST">
-                <div class="g-recaptcha mt-3" data-sitekey="6LdRf40qAAAAAF8LM--4_kpbbQFOqjTZExXhh-kC">
-                </div>
-                <br />
-                {{-- <input type="submit" value="Submit"> --}}
-            </form>
-        </div>
-    </footer>
+
 
 
 
@@ -222,6 +218,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+
+    <script>
+        function onSubmit(token) {
+      document.getElementById("recaptchaForm").submit();
+    }
     </script>
 
 </body>
